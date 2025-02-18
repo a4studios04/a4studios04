@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open World Racing Game</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #gameCanvas { 
+            background: url('background.jpg') repeat; 
+            width: 5000px; 
+            height: 5000px; 
+            position: absolute;
+        }
+        .car {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background: url('car.png') no-repeat center/cover;
+            top: 2450px;
+            left: 2450px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameCanvas">
+        <div class="car" id="playerCar"></div>
+    </div>
+    <script>
+        let car = document.getElementById("playerCar");
+        let gameCanvas = document.getElementById("gameCanvas");
+        let positionX = 2450, positionY = 2450;
+        let speed = 10;document.addEventListener("touchmove", function(event) {
+        let touch = event.touches[0];
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
+        
+        if (touch.clientX < screenWidth / 3) {
+            positionX -= speed;
+        } else if (touch.clientX > (2 * screenWidth / 3)) {
+            positionX += speed;
+        }
+        if (touch.clientY < screenHeight / 3) {
+            positionY -= speed;
+        } else if (touch.clientY > (2 * screenHeight / 3)) {
+            positionY += speed;
+        }
+        
+        car.style.left = positionX + "px";
+        car.style.top = positionY + "px";
+        gameCanvas.style.transform = `translate(${-positionX + screenWidth / 2}px, ${-positionY + screenHeight / 2}px)`;
+    });
+</script>
+
+</body>
+</html>
